@@ -1,0 +1,43 @@
+name: canal
+description: "A music player"
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: "^3.5.4"
+
+dependencies:
+  adwaita: ^1.1.0
+  collection: ^1.18.0
+  fast_immutable_collections: ^11.0.2
+  flutter:
+    sdk: flutter
+  flutter_hooks: ^0.20.5
+  freezed_annotation: ^2.4.4
+  gsettings:
+    git:
+      url: https://github.com/Henry-Hiles/gsettings.dart
+  hooks_riverpod: ^2.5.1
+  json_annotation: ^4.9.0
+  riverpod_annotation: ^2.3.5
+  yaru: ^5.1.0
+  window_size:
+    git:
+      url: https://github.com/google/flutter-desktop-embedding
+      path: plugins/window_size
+  dart_ytmusic_api: ^1.0.8
+
+dependency_overrides:
+  meta: ^1.15.0
+
+dev_dependencies:
+  build_runner: ^2.4.11
+  custom_lint: ^0.7.0
+  flutter_lints: ^5.0.0
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  riverpod_generator: ^2.4.2
+  riverpod_lint: ^2.3.12
+
+flutter:
+  uses-material-design: true
