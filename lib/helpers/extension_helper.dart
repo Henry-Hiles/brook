@@ -15,3 +15,8 @@ extension BetterWhen<T> on AsyncValue<T> {
         skipLoadingOnRefresh: false,
       );
 }
+
+extension Capitalize on String {
+  String toCapitalized() =>
+      length > 0 ? "${this[0].toUpperCase()}${substring(1).toLowerCase()}" : "";
+}

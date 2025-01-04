@@ -1,8 +1,10 @@
+import 'package:canal/models/search_type.dart';
+import 'package:canal/widgets/select_button.dart';
 import 'package:flutter/material.dart';
 import 'package:canal/models/tab.dart';
-import 'package:yaru/yaru.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class SearchTab extends StatelessWidget implements TabPage {
+class SearchTab extends HookWidget implements TabPage {
   const SearchTab({super.key});
 
   @override
@@ -13,15 +15,11 @@ class SearchTab extends StatelessWidget implements TabPage {
 
   @override
   Widget build(BuildContext context) => ListView(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         children: [
-          SegmentedButton(
-            segments: [
-              ButtonSegment(value: 0, label: Text("Foo")),
-              ButtonSegment(value: 1, label: Text("Bar")),
-              ButtonSegment(value: 2, label: Text("Foobar"))
-            ],
-            selected: {0},
+          SelectButton(
+            values: SearchType.values,
+            defaultValue: SearchType.any,
           )
         ],
       );
