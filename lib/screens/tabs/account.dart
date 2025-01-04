@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:canal/models/tab.dart';
+import 'package:brook/models/tab.dart';
 
 class AccountTab extends StatelessWidget implements TabPage {
   const AccountTab({super.key});

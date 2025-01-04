@@ -1,4 +1,4 @@
-import 'package:canal/providers/ytmusic_provider.dart';
+import 'package:brook/providers/ytmusic_provider.dart';
 import 'package:dart_ytmusic_api/dart_ytmusic_api.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

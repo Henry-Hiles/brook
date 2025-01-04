@@ -1,4 +1,4 @@
-package com.example.canal
+package com.example.brook
 
 import io.flutter.embedding.android.FlutterActivity
 

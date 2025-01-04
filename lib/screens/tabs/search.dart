@@ -1,11 +1,12 @@
-import 'package:canal/helpers/extension_helper.dart';
-import 'package:canal/providers/search_provider.dart';
-import 'package:canal/widgets/thumbnail.dart';
+import 'package:brook/helpers/extension_helper.dart';
+import 'package:collection/collection.dart';
+import 'package:brook/providers/search_provider.dart';
+import 'package:brook/widgets/thumbnail.dart';
 import 'package:dart_ytmusic_api/types.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:canal/widgets/select_button.dart';
-import 'package:canal/models/search_type.dart';
-import 'package:canal/models/tab.dart';
+import 'package:brook/widgets/select_button.dart';
+import 'package:brook/models/search_type.dart';
+import 'package:brook/models/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yaru/yaru.dart';
@@ -23,7 +24,6 @@ class SearchTab extends HookConsumerWidget implements TabPage {
   Widget build(BuildContext context, WidgetRef ref) {
     final type = useState(SearchType.any);
     final search = useState("");
-    final debouncedSearch = useDebounced(search, Duration(milliseconds: 250));
 
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -45,39 +45,65 @@ class SearchTab extends HookConsumerWidget implements TabPage {
         SizedBox(height: 8),
         ref
             .watch(searchProviderProvider(
-                search: search.value, searchType: type.value))
+              search: search.value,
+              searchType: type.value,
+            ))
             .betterWhen(
-                data: (results) => Wrap(
-                    children: results
-                        .map((result) => SizedBox(
-                            height: 64,
-                            width: 64,
-                            child: switch (result) {
-                              SongDetailed _ => Thumbnail(
-                                  url: result.thumbnails.first.url,
-                                  onClick: () {},
-                                ),
-                              AlbumDetailed _ => Thumbnail(
-                                  url: result.thumbnails.first.url,
-                                  onClick: () {},
-                                ),
-                              VideoDetailed _ => Thumbnail(
-                                  url: result.thumbnails.first.url,
-                                  onClick: () {},
-                                ),
-                              ArtistDetailed _ => Thumbnail(
-                                  url: result.thumbnails.first.url,
-                                  onClick: () {},
-                                ),
-                              PlaylistDetailed _ => Thumbnail(
-                                  url: result.thumbnails.first.url,
-                                  onClick: () {},
-                                ),
-                              _ => throw Exception(
-                                  "Unknown Detailed Result: ${result.runtimeType}",
-                                ),
-                            }))
-                        .toList())),
+              data: (results) => Column(
+                children: results
+                    .mapIndexed((index, result) => switch (result) {
+                          SongDetailed _ => Builder(builder: (_) {
+                              final padding =
+                                  EdgeInsets.symmetric(horizontal: 16);
+                              final leading = Thumbnail(
+                                url: result.thumbnails.first.url,
+                                onClick: () {},
+                              );
+                              return index == 0
+                                  ? SizedBox(
+                                      height: 128,
+                                      child: YaruBanner.tile(
+                                        padding: padding,
+                                        icon: leading,
+                                        title: Text(result.name),
+                                        subtitle: Text(result.artist.name),
+                                      ),
+                                    )
+                                  : YaruTile(
+                                      padding: padding,
+                                      leading: leading,
+                                      title: Text(result.name),
+                                      subtitle: Text(result.artist.name),
+                                    );
+                            }),
+                          AlbumDetailed _ => Thumbnail(
+                              url: result.thumbnails.first.url,
+                              onClick: () {},
+                            ),
+                          VideoDetailed _ => Thumbnail(
+                              url: result.thumbnails.first.url,
+                              onClick: () {},
+                              radius: 0,
+                            ),
+                          ArtistDetailed _ => Thumbnail(
+                              url: result.thumbnails.first.url,
+                              onClick: () {},
+                            ),
+                          PlaylistDetailed _ => Thumbnail(
+                              url: result.thumbnails.first.url,
+                              onClick: () {},
+                            ),
+                          _ => throw Exception(
+                              "Unknown Detailed Result: ${result.runtimeType}",
+                            ),
+                        })
+                    .map((element) => Padding(
+                          padding: EdgeInsets.only(bottom: 16),
+                          child: element,
+                        ))
+                    .toList(),
+              ),
+            ),
       ],
     );
   }

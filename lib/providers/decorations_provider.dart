@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import 'package:canal/models/decorations.dart';
-import 'package:canal/providers/button_layout_provider.dart';
+import 'package:brook/models/decorations.dart';
+import 'package:brook/providers/button_layout_provider.dart';
 import 'package:yaru/yaru.dart';
 import "package:collection/collection.dart";
 part 'decorations_provider.g.dart';

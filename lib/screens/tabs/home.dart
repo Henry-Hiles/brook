@@ -1,11 +1,11 @@
-import 'package:canal/helpers/extension_helper.dart';
-import 'package:canal/providers/home_sections_provider.dart';
-import 'package:canal/screens/album_page.dart';
-import 'package:canal/screens/playlist_page.dart';
-import 'package:canal/widgets/thumbnail.dart';
+import 'package:brook/helpers/extension_helper.dart';
+import 'package:brook/providers/home_sections_provider.dart';
+import 'package:brook/screens/album_page.dart';
+import 'package:brook/screens/playlist_page.dart';
+import 'package:brook/widgets/thumbnail.dart';
 import 'package:dart_ytmusic_api/dart_ytmusic_api.dart';
 import 'package:flutter/material.dart';
-import 'package:canal/models/tab.dart';
+import 'package:brook/models/tab.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yaru/yaru.dart';
 

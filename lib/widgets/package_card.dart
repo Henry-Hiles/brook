@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:canal/models/package.dart';
+import 'package:brook/models/package.dart';
 
 class PackageCard extends StatelessWidget {
   final Package package;

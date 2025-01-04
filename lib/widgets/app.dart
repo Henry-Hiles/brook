@@ -1,18 +1,18 @@
 import 'package:adwaita/adwaita.dart';
-import 'package:canal/helpers/extension_helper.dart';
-import 'package:canal/models/tab.dart';
-import 'package:canal/providers/ytmusic_provider.dart';
-import 'package:canal/screens/tabs/account.dart';
-import 'package:canal/screens/tabs/home.dart';
-import 'package:canal/screens/tabs/search.dart';
-import 'package:canal/widgets/appbar.dart';
+import 'package:brook/helpers/extension_helper.dart';
+import 'package:brook/models/tab.dart';
+import 'package:brook/providers/ytmusic_provider.dart';
+import 'package:brook/screens/tabs/account.dart';
+import 'package:brook/screens/tabs/home.dart';
+import 'package:brook/screens/tabs/search.dart';
+import 'package:brook/widgets/appbar.dart';
 import "package:flutter/material.dart";
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:yaru/yaru.dart';
-import 'package:canal/providers/button_layout_provider.dart';
-import 'package:canal/providers/warmup_provider.dart';
+import 'package:brook/providers/button_layout_provider.dart';
+import 'package:brook/providers/warmup_provider.dart';
 
 const List<TabPage> tabs = [HomeTab(), SearchTab(), AccountTab()];
 
@@ -31,7 +31,7 @@ class App extends HookConsumerWidget {
             ])))
             .betterWhen(
               data: (_) => YaruDetailPage(
-                appBar: const Appbar(title: "Canal"),
+                appBar: const Appbar(title: "Brook"),
                 body: tabs[selected.value],
                 bottomNavigationBar: NavigationBar(
                   destinations: tabs

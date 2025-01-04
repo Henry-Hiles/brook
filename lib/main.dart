@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:canal/widgets/app.dart';
+import 'package:brook/widgets/app.dart';
 import 'package:window_size/window_size.dart';
 import 'package:yaru/yaru.dart';
 

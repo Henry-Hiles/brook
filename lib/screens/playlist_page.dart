@@ -1,4 +1,4 @@
-import 'package:canal/widgets/appbar.dart';
+import 'package:brook/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
 class PlaylistPage extends StatelessWidget {

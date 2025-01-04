@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:canal/providers/decorations_provider.dart';
+import 'package:brook/providers/decorations_provider.dart';
 import 'package:yaru/yaru.dart';
 
 class Appbar extends ConsumerWidget implements PreferredSizeWidget {
