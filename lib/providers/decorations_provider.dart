@@ -10,11 +10,9 @@ part 'decorations_provider.g.dart';
 Decorations decorations(Ref ref) {
   List<YaruWindowControlType> parse(String section) => section
       .split(",")
-      .map(
-        (button) => YaruWindowControlType.values.firstWhereOrNull(
-          (element) => element.name == button,
-        ),
-      )
+      .map((button) => YaruWindowControlType.values.firstWhereOrNull(
+            (element) => element.name == button,
+          ))
       .nonNulls
       .toList();
 
