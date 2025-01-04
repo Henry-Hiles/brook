@@ -10,7 +10,7 @@ extension BetterWhen<T> on AsyncValue<T> {
       when(
         data: data,
         error: (error, stackTrace) =>
-            Text("error"), // TODO: Better err reporting
+            Text("$error"), // TODO: Better err reporting
         loading: loading,
         skipLoadingOnRefresh: false,
       );

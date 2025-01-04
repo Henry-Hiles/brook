@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class SelectButton<T extends Enum> extends HookWidget {
-  final T defaultValue;
+  final T value;
   final List<T> values;
+  final Function(T newValue) onChanged;
   const SelectButton({
-    required this.defaultValue,
+    required this.value,
     required this.values,
+    required this.onChanged,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final selected = useState(defaultValue);
     final oldValue = useState(<T>{});
     return SegmentedButton(
       segments: values
@@ -23,10 +24,10 @@ class SelectButton<T extends Enum> extends HookWidget {
               ))
           .toList(),
       onSelectionChanged: (newValue) {
-        selected.value = newValue.difference(oldValue.value).first;
+        onChanged(newValue.difference(oldValue.value).first);
         oldValue.value = newValue;
       },
-      selected: {selected.value},
+      selected: {value},
     );
   }
 }

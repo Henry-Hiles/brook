@@ -1,8 +1,8 @@
 enum SearchType {
   any,
   songs,
+  albums,
   videos,
   artists,
-  albums,
   playlists,
 }
