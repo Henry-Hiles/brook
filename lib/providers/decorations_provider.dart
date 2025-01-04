@@ -15,7 +15,7 @@ Decorations decorations(Ref ref) {
           (element) => element.name == button,
         ),
       )
-      .whereNotNull()
+      .nonNulls
       .toList();
 
   final buttons = ref.watch(buttonLayoutProvider).requireValue;
