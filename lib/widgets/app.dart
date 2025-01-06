@@ -10,7 +10,6 @@ import "package:flutter/material.dart";
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:yaru/yaru.dart';
 import 'package:brook/providers/button_layout_provider.dart';
 import 'package:brook/providers/warmup_provider.dart';
 
@@ -30,30 +29,28 @@ class App extends HookConsumerWidget {
               ytmusicProvider,
             ])))
             .betterWhen(
-              data: (_) => YaruDetailPage(
-                appBar: const Appbar(title: "Brook"),
-                body: tabs[selected.value],
+              data: (_) => Scaffold(
+                appBar: Appbar(title: "Brook"),
                 bottomNavigationBar: NavigationBar(
                   destinations: tabs
                       .map(
                         (tab) => NavigationDestination(
-                          icon: Icon(tab.icon),
+                          icon: Icon(
+                            tab.icon,
+                          ),
                           label: tab.title,
                         ),
                       )
                       .toList(),
-                  selectedIndex: selected.value,
                   onDestinationSelected: (index) => selected.value = index,
+                  selectedIndex: selected.value,
                 ),
+                body: tabs[selected.value],
               ),
             ),
       ),
-      theme: AdwaitaThemeData.light().copyWith(
-        textTheme: const YaruThemeData().theme?.textTheme,
-      ),
-      darkTheme: AdwaitaThemeData.dark().copyWith(
-        textTheme: const YaruThemeData().darkTheme?.textTheme,
-      ),
+      theme: AdwaitaThemeData.light().tweaked(),
+      darkTheme: AdwaitaThemeData.dark(),
       debugShowCheckedModeBanner: false,
     );
   }

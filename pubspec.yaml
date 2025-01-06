@@ -20,14 +20,12 @@ dependencies:
   hooks_riverpod: ^2.5.1
   json_annotation: ^4.9.0
   riverpod_annotation: ^2.3.5
-  yaru: ^5.1.0
-  window_size:
-    git:
-      url: https://github.com/google/flutter-desktop-embedding
-      path: plugins/window_size
   dart_ytmusic_api:
     git:
       url: https://github.com/Henry-Hiles/dart_ytmusic_api
+  flutter_adaptive_scaffold: ^0.3.1
+  window_manager: ^0.4.3
+  adwaita_icons: ^0.2.1
 
 dependency_overrides:
   collection: ^1.19.1

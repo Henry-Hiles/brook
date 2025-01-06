@@ -17,6 +17,10 @@ class SelectButton<T extends Enum> extends HookWidget {
   Widget build(BuildContext context) {
     final oldValue = useState(<T>{});
     return SegmentedButton(
+      style: SegmentedButton.styleFrom(
+        side: BorderSide.none,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+      ),
       segments: values
           .map((value) => ButtonSegment(
                 value: value,

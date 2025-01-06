@@ -1,14 +1,16 @@
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:brook/widgets/app.dart';
-import 'package:window_size/window_size.dart';
-import 'package:yaru/yaru.dart';
+import 'package:window_manager/window_manager.dart';
 
 void main() async {
-  await YaruWindowTitleBar.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
 
-  setWindowMinSize(const Size.square(500));
+  await windowManager.ensureInitialized();
+  windowManager.waitUntilReadyToShow(WindowOptions(
+    minimumSize: Size.square(500),
+    titleBarStyle: TitleBarStyle.hidden,
+  ));
 
   runApp(const ProviderScope(child: App()));
 }

@@ -20,3 +20,15 @@ extension Capitalize on String {
   String toCapitalized() =>
       length > 0 ? "${this[0].toUpperCase()}${substring(1).toLowerCase()}" : "";
 }
+
+extension GetTheme on ThemeData {
+  ThemeData tweaked() => copyWith(
+        textTheme: (brightness == Brightness.light
+                ? ThemeData.light()
+                : ThemeData.dark())
+            .textTheme,
+        navigationRailTheme: NavigationRailThemeData(
+          backgroundColor: Colors.transparent,
+        ),
+      );
+}

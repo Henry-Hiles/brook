@@ -20,7 +20,7 @@ Future<IList<SearchResult>> searchProvider(
       SearchType.songs => await yt.searchSongs(search),
       SearchType.albums => await yt.searchAlbums(search),
       SearchType.videos => await yt.searchVideos(search),
-      SearchType.artists => await yt.searchAlbums(search),
+      SearchType.artists => await yt.searchArtists(search),
       SearchType.playlists => await yt.searchPlaylists(search),
     },
   );

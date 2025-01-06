@@ -1,4 +1,5 @@
 import 'package:brook/helpers/extension_helper.dart';
+import 'package:brook/widgets/result.dart';
 import 'package:collection/collection.dart';
 import 'package:brook/providers/search_provider.dart';
 import 'package:brook/widgets/thumbnail.dart';
@@ -9,7 +10,6 @@ import 'package:brook/models/search_type.dart';
 import 'package:brook/models/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:yaru/yaru.dart';
 
 class SearchTab extends HookConsumerWidget implements TabPage {
   const SearchTab({super.key});
@@ -28,9 +28,8 @@ class SearchTab extends HookConsumerWidget implements TabPage {
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       children: [
-        YaruSearchField(
-          hintText: "Search YouTube music...",
-          fillColor: Theme.of(context).colorScheme.surface,
+        SearchBar(
+          hintText: "Search YouTube Music...",
           onChanged: (value) => search.value = value,
         ),
         Padding(
@@ -42,66 +41,71 @@ class SearchTab extends HookConsumerWidget implements TabPage {
           ),
         ),
         Divider(),
-        SizedBox(height: 8),
         ref
             .watch(searchProviderProvider(
               search: search.value,
               searchType: type.value,
             ))
             .betterWhen(
-              data: (results) => Column(
-                children: results
-                    .mapIndexed((index, result) => switch (result) {
-                          SongDetailed _ => Builder(builder: (_) {
-                              final padding =
-                                  EdgeInsets.symmetric(horizontal: 16);
-                              final leading = Thumbnail(
-                                url: result.thumbnails.first.url,
-                                onClick: () {},
-                              );
-                              return index == 0
-                                  ? SizedBox(
-                                      height: 128,
-                                      child: YaruBanner.tile(
-                                        padding: padding,
-                                        icon: leading,
-                                        title: Text(result.name),
-                                        subtitle: Text(result.artist.name),
-                                      ),
-                                    )
-                                  : YaruTile(
-                                      padding: padding,
-                                      leading: leading,
-                                      title: Text(result.name),
-                                      subtitle: Text(result.artist.name),
-                                    );
-                            }),
-                          AlbumDetailed _ => Thumbnail(
-                              url: result.thumbnails.first.url,
-                              onClick: () {},
-                            ),
-                          VideoDetailed _ => Thumbnail(
-                              url: result.thumbnails.first.url,
-                              onClick: () {},
-                              radius: 0,
-                            ),
-                          ArtistDetailed _ => Thumbnail(
-                              url: result.thumbnails.first.url,
-                              onClick: () {},
-                            ),
-                          PlaylistDetailed _ => Thumbnail(
-                              url: result.thumbnails.first.url,
-                              onClick: () {},
-                            ),
-                          _ => throw Exception(
-                              "Unknown Detailed Result: ${result.runtimeType}",
-                            ),
-                        })
-                    .map((element) => Padding(
-                          padding: EdgeInsets.only(bottom: 16),
-                          child: element,
-                        ))
-                    .toList(),
+              data: (results) => LayoutBuilder(
+                builder: (_, constraints) {
+                  final maxGridSize = (constraints.maxWidth / 3) - 4 * 3 * 2;
+                  final gridSize = maxGridSize < 300 ? null : maxGridSize;
+
+                  return Wrap(
+                    children: [
+                      ...results
+                          .mapIndexed((index, result) => switch (result) {
+                                SongDetailed _ => Result(
+                                    thumb: result.thumbnails.first.url,
+                                    onClick: () {},
+                                    title: result.name,
+                                    subtitle: result.artist.name,
+                                  ),
+                                AlbumDetailed _ => Result(
+                                    thumb: result.thumbnails.first.url,
+                                    onClick: () {},
+                                    title: result.name,
+                                    subtitle: result.artist.name,
+                                  ),
+                                VideoDetailed _ => Thumbnail(
+                                    url: result.thumbnails.first.url,
+                                    onClick: () {},
+                                    child: Icon(
+                                      Icons.play_circle,
+                                      size: 48,
+                                    ),
+                                  ),
+                                ArtistDetailed _ => Result(
+                                    thumb: result.thumbnails.first.url,
+                                    onClick: () {},
+                                    title: result.name,
+                                  ),
+                                PlaylistDetailed _ => Result(
+                                    thumb: result.thumbnails.first.url,
+                                    subtitle: result.artist.name,
+                                    onClick: () {},
+                                    title: result.name,
+                                  ),
+                                _ => throw Exception(
+                                    "Unknown Detailed Result: ${result.runtimeType}",
+                                  ),
+                              })
+                          .mapIndexed((index, element) => index == 0
+                              ? element
+                              : Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 4,
+                                    vertical: 6,
+                                  ),
+                                  child: SizedBox(
+                                    width: gridSize?.toDouble(),
+                                    child: element,
+                                  ),
+                                ))
+                    ],
+                  );
+                },
               ),
             ),
       ],
